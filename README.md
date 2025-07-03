@@ -3,18 +3,18 @@ Folder Structure ->
 jobsage-agent/
 ├── backend/
 │   ├── agents/
-│   │   ├── resume\_parser.py
-│   │   ├── job\_scraper.py
-│   │   ├── cover\_letter\_gen.py
-│   │   └── result\_packager.py
+│   │   ├── resume_parser.py
+│   │   ├── job_scraper.py
+│   │   ├── cover_letter_gen.py
+│   │   └── result_packager.py
 │   ├── langgraph/
-│   │   └── job\_agent\_graph.py
+│   │   └── job_agent_graph.py
 │   ├── database/
-│   │   └── mongo\_utils.py
+│   │   └── mongo_utils.py
 │   ├── api/
 │   │   └── main.py              # FastAPI backend
 │   ├── scripts/
-│   │   └── realtime\_loop.py
+│   │   └── realtime_loop.py
 │   └── requirements.txt
 │
 ├── frontend/
