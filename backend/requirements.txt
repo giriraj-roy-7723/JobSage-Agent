@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+pydantic
+PyPDF2
+docx2txt
+langgraph
+google-generativeai
+pymongo
+python-dotenv
