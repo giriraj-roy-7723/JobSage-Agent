@@ -25,3 +25,23 @@ def get_all_resumes():
     Returns all stored resumes as a list.
     """
     return list(resume_collection.find())
+
+#inserting jobs that are scraped 
+
+def insert_job(job_data: dict):
+    client = MongoClient(MONGO_URI)
+    db = client[DB_NAME]
+    collection = db["jobs"]
+    collection.insert_one(job_data)
+
+
+# database/mongo_utils.py
+
+from pymongo import MongoClient
+
+def get_all_jobs():
+    client = MongoClient(MONGO_URI)
+    db = client[DB_NAME]
+    collection = db["jobs"]
+    jobs = list(collection.find({}, {"_id": 0}))  #exclude ObjectId
+    return jobs
