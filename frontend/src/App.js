@@ -22,17 +22,18 @@ function App() {
   return (
     <div className="app-container">
       <div className="content-wrapper">
-        <h1 className="main-heading">Internshala Job Listings</h1>
+        <h1 className="main-heading">Job Listings</h1>
 
         {loading ? (
           <div className="loader">Loading jobs...</div>
         ) : (
-          <div className="job-list">
+          <div className="job-grid">
             {jobs.length === 0 ? (
               <p className="no-jobs">No jobs available.</p>
             ) : (
               jobs.map((job, index) => (
                 <div key={index} className="job-card">
+                  <h3 className="job-title">{job.title || "Untitled Job"}</h3>
                   <a
                     href={job.link}
                     target="_blank"

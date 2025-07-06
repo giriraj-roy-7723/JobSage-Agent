@@ -58,8 +58,8 @@ from fastapi.responses import JSONResponse
 
 import subprocess , sys
 
-@app.get("/scrape/internshala")
-async def scrape_internshala_jobs1():
+@app.get("/scrape/jobs")
+async def scrape_jobs1():
     try:
         subprocess.run([sys.executable, "agents/job_scraper.py"], check=True)
         return {"status": "success", "message": "Scraping started"}
