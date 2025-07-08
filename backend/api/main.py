@@ -28,7 +28,6 @@ async def upload_resume(file: UploadFile = File(...)):
         "resume_id": resume_id,
         "parsed": parsed_data
     }
-from agents.cover_letter_gen import generate_cover_letter
 @app.post("/generate-cover-letter")
 async def generate_cover_letter_endpoint(
     file: UploadFile = File(...),
@@ -39,12 +38,10 @@ async def generate_cover_letter_endpoint(
     resume_id = save_parsed_resume(parsed_data)
     parsed_data["_id"] = str(resume_id)
 
-    cover_letter = generate_cover_letter(parsed_data, job_description)
 
     return {
         "status": "success",
-        "resume_id": parsed_data["_id"],
-        "cover_letter": cover_letter
+        "resume_id": parsed_data["_id"]
     }
 
 
@@ -93,7 +90,7 @@ def get_personalized_jobs():
 
 
 import asyncio
-from agents.job_scraper import scrape_internshala_jobs, scrape_jobright_jobs, scrape_glassdoor_jobs
+from agents.job_scraper import scrape_internshala_jobs, scrape_jobright_jobs
 
 # @app.on_event("startup")
 # async def schedule_periodic_scraping():

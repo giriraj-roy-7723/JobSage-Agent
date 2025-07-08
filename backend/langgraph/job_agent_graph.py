@@ -1,7 +1,6 @@
 from langgraph.graph import StateGraph, END
 from typing import Annotated, Dict, List, Any
 from database.mongo_utils import get_latest_resume, get_all_jobs
-from agents.cover_letter_gen import generate_cover_letter
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
