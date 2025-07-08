@@ -2,12 +2,10 @@ import re
 import docx2txt
 from PyPDF2 import PdfReader
 from typing import Dict
-
 import io
-def extract_text_from_pdf(pdf_bytes) -> str:
-    pdf_stream=io.BytesIO(pdf_bytes)#pdf bytes is a raw bytes . we are converting it toa file like stream 
-    #the only difference between the two is the former doesnot contain a pinter and the latter contains a pointer hence the functions like seek() will work on it
 
+def extract_text_from_pdf(pdf_bytes) -> str:
+    pdf_stream = io.BytesIO(pdf_bytes)
     reader = PdfReader(pdf_stream)
     text = ""
     for page in reader.pages:
@@ -27,13 +25,21 @@ def extract_basic_info(text: str) -> dict:
         email = partial_email.group() + "gmail.com" if partial_email else None
     else:
         email = email_match.group()
-    #email = re.search(r'[\w\.-]+@[\w\.-]+\.\w{2,}', clean_text)
+
     phone = re.search(r'(\+91)?[ -]?\(?\d{10}\)?', clean_text)
     skill_keywords = [
-        "Python", "C", "C++", "Java", "JavaScript", "Node.js", "Express.js",
-        "MongoDB", "React", "HTML", "CSS", "Langchain", "TensorFlow", "PyTorch",
-        "Keras", "NumPy", "Pandas", "Matplotlib", "Scikit-Learn"
-    ]
+    "Python", "C", "C++", "Java", "JavaScript", "TypeScript","Rust", "Ruby", "Swift", "PHP", "SQL", "Shell",
+    "HTML", "CSS", "SASS", "Tailwind", "Bootstrap", "React", "Next.js", "Vue", "Angular", "Redux", "Framer Motion",
+    "Node.js", "Express.js", "Flask", "Django", "Spring", "FastAPI", "GraphQL", "REST", "gRPC",
+    "MongoDB", "MySQL", "PostgreSQL", "SQLite", "Firebase", "Redis", "Elasticsearch",
+    "Docker", "Kubernetes", "Git", "GitHub", "CI/CD", "Jenkins", "Linux", "Bash", "AWS", "GCP", "Azure", 
+    "TensorFlow", "PyTorch", "Keras", "Scikit-Learn", "XGBoost", "LightGBM", "OpenCV", "Transformers", "spaCy",
+    "Langchain", "LlamaIndex", "HuggingFace", "Pinecone", "ChromaDB", "BERT", "LLM", "Fine-tuning",
+    "NumPy", "Pandas", "Matplotlib", "Seaborn", "Plotly", "SQL", "Tableau", "Power BI", "Excel",
+    "NLTK", "spaCy", "BART","BERT", "T5", "TextBlob", "Summarization", "NER", "RAG", "Embedding",
+    "Agile", "Scrum", "Figma", "UI/UX", "Postman", "Firebase", "Notion", "Jira", "Trello","ReactNative","Swift","Kotlin"
+]
+
     
     found_skills = [skill for skill in skill_keywords if skill.lower() in clean_text.lower()]
 
@@ -43,6 +49,16 @@ def extract_basic_info(text: str) -> dict:
         "skills": found_skills
     }
 
+def clean_resume_text(text: str) -> str: #do using chatgpt later
+    # Fix broken words like 'A N N' → 'ANN'
+    text = re.sub(r'\b(?:\w\s+){1,6}\w\b', lambda x: x.group().replace(" ", ""), text)
+    # Replace multiple newlines or spaces with single space
+    text = re.sub(r'\s+', ' ', text)
+    # Remove bullets and stray symbols
+    text = text.replace("❖", "").replace("|", "")
+    # Remove spacing before punctuation
+    text = re.sub(r'\s+([.,:;!?])', r'\1', text)
+    return text.strip()
 
 def parse_resume(file: bytes, filename: str) -> Dict:
     if filename.endswith(".pdf"):
@@ -53,5 +69,5 @@ def parse_resume(file: bytes, filename: str) -> Dict:
         raise ValueError("Unsupported file format")
 
     info = extract_basic_info(text)
-    info["raw_text"] = text
+    info["raw_text"] = clean_resume_text(text)
     return info

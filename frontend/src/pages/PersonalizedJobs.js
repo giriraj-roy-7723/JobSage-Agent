@@ -27,8 +27,10 @@ function PersonalizedJobs() {
 
   return (
     <div className="personalized-wrapper">
-      <h1 className="personalized-heading">🧠 Personalized Jobs</h1>
-
+      <h1 className="personalized-heading"> Personalized Jobs</h1>
+      <div className="info-box">
+        <strong>Smart Matches:</strong> These jobs are personalized for you based on your resume skills  Make sure your resume is updated for best results!
+      </div>
       {loading ? (
         <p className="status-message">Loading personalized jobs...</p>
       ) : status ? (
@@ -46,9 +48,13 @@ function PersonalizedJobs() {
               >
                 View Job ↗
               </a>
+              <p className="job-source">
+                Source: <strong>{job.source || 'Unknown'}</strong>
+              </p>
               <p className="match-score">
                 Match Score: <strong>{job.score}</strong>
               </p>
+
 
               {job.cover_letter && (
                 <details className="cover-letter">
@@ -57,6 +63,7 @@ function PersonalizedJobs() {
                 </details>
               )}
             </div>
+
           ))}
         </div>
       )}

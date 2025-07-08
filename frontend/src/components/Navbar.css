@@ -1,44 +1,136 @@
-/* src/components/Navbar.css */
+/* --- NAVBAR BASE STYLES --- */
 .navbar {
   width: 100%;
+  height: 72px;
   position: fixed;
   top: 0;
   left: 0;
-  background: #111;
+  background: rgba(10, 10, 25, 0.95);
+  backdrop-filter: blur(12px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 40px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 0 40px;
+  box-shadow: 0 8px 24px rgba(0, 229, 255, 0.05);
   z-index: 1000;
   font-family: 'Outfit', sans-serif;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.1);
   box-sizing: border-box;
 }
 
-.navbar-logo {
-  font-weight: 800;
-  font-size: 1.5rem;
-  color: #00e5ff;
+/* --- LOGO --- */
+.navbar-left {
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 
-.navbar-links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 20px;
+.navbar-logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #00e5ff;
+  letter-spacing: 0.6px;
+  text-shadow: 0 0 5px #00e5ff88;
+  transition: transform 0.3s ease;
 }
 
-.navbar-links a {
+.navbar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* --- RIGHT LINKS --- */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* --- NAV LINKS --- */
+.navbar-link {
+  position: relative;
   font-size: 1rem;
   font-weight: 500;
   color: #ccc;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
   text-decoration: none;
-  transition: color 0.3s ease;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+  border-radius: 6px;
 }
 
-.navbar-links a:hover,
-.navbar-links .active {
+.navbar-link:hover,
+.navbar-link.active {
   color: #00e5ff;
+  background-color: rgba(0, 229, 255, 0.08);
   font-weight: 600;
+  text-shadow: 0 0 6px #00e5ff55;
+}
+
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #00e5ff, #00bfff);
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.navbar-link:hover::after,
+.navbar-link.active::after {
+  width: 100%;
+}
+
+/* --- TRIGGER SCRAPING BUTTON --- */
+.scrape {
+  color: #00e5ff;
+  background-color: rgba(0, 229, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  padding: 6px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.12);
+  transition: all 0.25s ease;
+}
+
+.scrape:hover {
+  background-color: rgba(0, 229, 255, 0.15);
+  transform: scale(1.05);
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.2);
+}
+
+.scrape:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: rgba(0, 229, 255, 0.08);
+  border: 1px dashed rgba(0, 229, 255, 0.3);
+}
+
+/* --- SEPARATOR --- */
+.separator {
+  height: 20px;
+  width: 1px;
+  background-color: #444;
+  opacity: 0.5;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .navbar-right {
+    gap: 10px;
+    font-size: 0.9rem;
+  }
+
+  .navbar-logo {
+    font-size: 1.5rem;
+  }
 }

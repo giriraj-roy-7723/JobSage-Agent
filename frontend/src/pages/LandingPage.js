@@ -11,7 +11,7 @@ function LandingPage() {
       <div className="hero-overlay">
         <h1 className="main-heading">LAND YOUR DREAM JOB FASTER</h1>
         <p className="sub-heading">
-          An AI-powered agent that parses your resume, scrapes jobs, and crafts cover letters tailored to you.
+         An AI-powered career agent that parses your resume, intelligently scrapes job listings from multiple platforms, and delivers the most relevant jobs just for you — all in one place!
         </p>
         <button className="hero-button" onClick={() => navigate('/')}>Explore Jobs →</button>
       </div>
@@ -23,7 +23,7 @@ function LandingPage() {
         </div>
         <div className="feature-block">
           <h3>🧠 AI Career Matching</h3>
-          <p>Powered by LangGraph and Gemini, we personalize job recommendations & cover letters.</p>
+          <p>Powered by LangGraph and Sentence Transformers, we personalize job recommendations for you.</p>
         </div>
         <div className="feature-block">
           <h3>⚡ Seamless Backend</h3>

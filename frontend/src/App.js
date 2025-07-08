@@ -8,6 +8,9 @@ import './App.css';
 import LandingPage from './pages/LandingPage';
 
 
+import ScrapeJob from './pages/ScrapeJobs';
+
+
 
 
 function App() {
@@ -21,6 +24,7 @@ function App() {
             <Route path="/personalized" element={<PersonalizedJobs />} />
             <Route path="/resume" element={<ResumeUpload />} />
             <Route path="/landing" element={<LandingPage />} />
+            <Route path="/scrape" element={<ScrapeJob />} />
 
           </Routes>
         </div>

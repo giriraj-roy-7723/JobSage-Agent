@@ -20,8 +20,10 @@ function Home() {
 
   return (
     <div className="home-wrapper">
-      <h1 className="home-heading">💼 All Jobs</h1>
-
+      <h1 className="home-heading">Scraped Jobs</h1>
+      <div className="info-box">
+        <strong>Job Basket:</strong> This contains all the freshly posted jobs scraped from Internshala, Jobright, and Glassdoor every few hours. Stay tuned for the latest opportunities!
+      </div>
       {loading ? (
         <div className="loader">⏳ Loading jobs...</div>
       ) : jobs.length === 0 ? (
@@ -39,15 +41,23 @@ function Home() {
               >
                 View Posting ↗
               </a>
+              <p className="job-source">
+                Source: <strong>{job.source || 'Unknown'}</strong>
+              </p>
               <p className="timestamp">
                 Scraped at:{' '}
                 <strong>
-                  {new Date(job.scraped_at).toLocaleString('en-IN', {
+                  {new Date(job.scraped_at).toLocaleString('en-GB', {
                     timeZone: 'Asia/Kolkata',
-                  })}
+                    dateStyle: 'full',
+                    timeStyle: 'medium',
+                  })
+                  }
                 </strong>
               </p>
+
             </div>
+
           ))}
         </div>
       )}

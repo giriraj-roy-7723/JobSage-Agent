@@ -33,7 +33,6 @@ def get_latest_resume():
 
 
 #inserting jobs that are scraped 
-
 def insert_job(job_data: dict):
     client = MongoClient(MONGO_URI)
     db = client[DB_NAME]
@@ -46,3 +45,9 @@ def get_all_jobs():
     collection = db["jobs"]
     jobs = list(collection.find({}, {"_id": 0}))  #exclude ObjectId
     return jobs
+
+def delete_all_jobs():
+    client = MongoClient(MONGO_URI)
+    db = client[DB_NAME]
+    collection = db["jobs"]
+    result = collection.delete_many({})

@@ -1,7 +1,14 @@
 /* src/pages/PersonalizedJobs.css */
-
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+body {
+  background-image: url('abstract-geometric-with-connected-lines-dots-big-data-visualization-network-connection_906809-7581.jpg') ;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  font-family: 'Outfit', sans-serif;
+}
 .personalized-wrapper {
-  padding: 100px 40px 60px;
+  padding: 8px 40px 60px;
   background: linear-gradient(to bottom right, #101010, #1a1a1a);
   min-height: 100vh;
   color: #fff;
@@ -65,9 +72,13 @@
 }
 
 .match-score {
-  font-size: 0.95rem;
-  color: #ccc;
-  margin-bottom: 10px;
+  color: #1d1c1c; 
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.match-score:hover {
+  text-shadow: 0 0 5px #fafffd;
 }
 
 .cover-letter summary {
@@ -82,4 +93,26 @@
   color: #bbb;
   margin-top: 6px;
   line-height: 1.6;
+}
+.job-source {
+  color: #031735;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.info-box {
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  text-align: center;
+  color: #f0f0f0;
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  backdrop-filter: blur(4px);
 }

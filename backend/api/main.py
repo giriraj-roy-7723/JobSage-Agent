@@ -9,7 +9,7 @@ app = FastAPI()
 #cors error is the error for calling one domain from other which might not have permission for that domain
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React dev server
+    allow_origins=["http://localhost:3000"],  #React dev server
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -50,11 +50,13 @@ async def generate_cover_letter_endpoint(
 
 from agents.job_scraper import scrape_internshala_jobs
 from fastapi.responses import JSONResponse
-
+from database.mongo_utils import delete_all_jobs
 import subprocess , sys
 
 @app.get("/scrape/jobs")
 async def scrape_jobs1():
+    delete_all_jobs()
+   
     try:
         subprocess.run([sys.executable, "agents/job_scraper.py"], check=True)
         return {"status": "success", "message": "Scraping started"}
@@ -62,7 +64,6 @@ async def scrape_jobs1():
         # return JSONResponse(content={"status": "success", "message": "Internshala jobs scraped and stored!"})
     except Exception as e:
         return JSONResponse(status_code=500, content={"status": "error", "message": str(e)})
-    
 
 
 
@@ -86,3 +87,27 @@ from langgraph.job_agent_graph import run_job_matching_agent_langgraph
 @app.get("/personalized-jobs")
 def get_personalized_jobs():
     return run_job_matching_agent_langgraph()
+
+
+#creating a loop for the scraper to run every 10 hrs on its own
+
+
+import asyncio
+from agents.job_scraper import scrape_internshala_jobs, scrape_jobright_jobs, scrape_glassdoor_jobs
+
+# @app.on_event("startup")
+# async def schedule_periodic_scraping():
+#     async def loop_scraper():
+#         while True:
+#             try:
+#                 print("Running scheduled job scraping...")
+#                 await scrape_glassdoor_jobs()
+#                 await scrape_jobright_jobs()
+#                 await scrape_internshala_jobs()
+#                     #await scrape_jobright_jobs()
+#                 print("Scraping completed!")
+#             except Exception as e:
+#                 print(f"Scraping failed: {e}")
+#             await asyncio.sleep(5)  #  Sleep 10 hours
+
+#     asyncio.create_task(loop_scraper())

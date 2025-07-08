@@ -2,7 +2,8 @@
 
 .home-wrapper {
   min-height: 100vh;
-  padding: 100px 40px 60px;
+
+  padding: 8px 40px 60px;
   background: linear-gradient(to bottom, #0f0f0f, #181818);
   font-family: 'Outfit', sans-serif;
   color: #fff;
@@ -74,4 +75,27 @@
 .timestamp {
   font-size: 0.9rem;
   color: #ccc;
+}
+.job-source {
+  color: #071a2d;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+
+.info-box {
+  margin-top: 2rem;
+  margin-bottom: 2.5rem; /* ✅ Add this line */
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  text-align: center;
+  color: #f0f0f0;
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  backdrop-filter: blur(4px);
 }

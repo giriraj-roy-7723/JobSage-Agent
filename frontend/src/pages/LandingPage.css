@@ -39,8 +39,9 @@ body {
 }
 
 .sub-heading {
-  font-size: 1.2rem;
-  color: #ccc;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  color: #ffffff;
   margin-bottom: 30px;
   font-weight: 400;
 }
@@ -78,7 +79,7 @@ body {
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  color: #eee;
+  color: #ffffff;
   transition: transform 0.3s ease;
 }
 

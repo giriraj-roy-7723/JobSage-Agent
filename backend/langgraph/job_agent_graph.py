@@ -26,51 +26,42 @@ from google.generativeai import GenerativeModel
 import os
 from dotenv import load_dotenv
 load_dotenv()
-gemini = GenerativeModel("models/gemini-1.5-flash-latest") 
 
+
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+import json
+
+model = SentenceTransformer("all-MiniLM-L6-v2")
+gemini=GenerativeModel("models/gemini-1.5-flash")
 def score_jobs(state: State) -> NodeOutput:
     resume = state["resume"]
     resume_skills = resume.get("skills", [])
+    raw_text = resume.get("raw_text", "")
     jobs = state["jobs"]
-
+    resume_input = " ".join(resume_skills) + " " + raw_text[:1500]
+    resume_embedding = model.encode(resume_input)
     scored = []
     for job in jobs:
-        job_title = job.get("title", "")
-        prompt = f"""
-        You are a career advisor AI. A candidate has the following skills: {', '.join(resume_skills)}.
-        The job title is "{job_title}". 
-        Does this job align well with the candidate's skills?
+        title = job.get("title", "")
+        job_embedding = model.encode(title)
+        score = cosine_similarity([resume_embedding], [job_embedding])[0][0]
 
-        Return a JSON in the format:
-        {{
-          "match": true/false,
-          "confidence": score between 0 and 1
-        }}
-        """
+        scored.append({
+            "title": title,
+            "link": job.get("link", ""),
+            "source": job.get("source", "Unknown"),
+            "score": float(round(score, 3))  #casting to float cause json cant parse float32 kind of dtypes
+            
+        })
+    top_20 = sorted(scored, key=lambda x: -x["score"])[:20]
 
-        try:
-            response = gemini.generate_content(prompt)
-            result = response.text.strip()
-            import json
-            data = json.loads(result)
-
-            if data.get("match", False):
-                scored.append({
-                    "title": job_title,
-                    "link": job.get("link", ""),
-                    "score": round(data.get("confidence", 0), 3)
-                })
-
-        except Exception as e:
-            print(f"Error scoring job: {job_title} — {e}")
-            continue
-
-    state["scored_jobs"] = scored
+    state["scored_jobs"] = top_20
     return state
 
 
 def package_results(state: State) -> NodeOutput:
-    top_n = 5
+    top_n = 20
     top_jobs = state["scored_jobs"][:top_n]
     state["recommended_jobs"] = top_jobs
     
