@@ -1,3 +1,6 @@
 *.venv
 *.env
 *__pycache__
+*glassdoor_user_data
+*jobright_user_data
+*linkedin_user_data

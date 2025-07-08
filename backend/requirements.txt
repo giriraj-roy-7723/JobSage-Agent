@@ -8,3 +8,5 @@ langgraph
 google-generativeai
 pymongo
 python-dotenv
+langgraph
+scikit-learn

@@ -12,6 +12,7 @@ client = MongoClient(MONGO_URI)
 db = client[DB_NAME]
 resume_collection = db[COLLECTION_NAME]
 
+#insertinfg resume
 def save_parsed_resume(data: dict) -> str:
     """
     Stores parsed resume data into MongoDB.
@@ -26,6 +27,11 @@ def get_all_resumes():
     """
     return list(resume_collection.find())
 
+def get_latest_resume():
+    return db["resumes"].find_one(sort=[("_id", -1)])
+
+
+
 #inserting jobs that are scraped 
 
 def insert_job(job_data: dict):
@@ -33,11 +39,6 @@ def insert_job(job_data: dict):
     db = client[DB_NAME]
     collection = db["jobs"]
     collection.insert_one(job_data)
-
-
-# database/mongo_utils.py
-
-from pymongo import MongoClient
 
 def get_all_jobs():
     client = MongoClient(MONGO_URI)

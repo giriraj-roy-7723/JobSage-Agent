@@ -1,0 +1,79 @@
+/* src/pages/ResumeUpload.css */
+
+.resume-upload-wrapper {
+  min-height: 100vh;
+  padding: 100px 20px 60px;
+  background: linear-gradient(to bottom, #0f0f0f, #181818);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Outfit', sans-serif;
+}
+
+.resume-upload-box {
+  background: #1e1e1e;
+  padding: 50px;
+  border-radius: 16px;
+  border: 1px solid #333;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  text-align: center;
+}
+
+.resume-heading {
+  font-size: 2.3rem;
+  color: #00e5ff;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.resume-subheading {
+  font-size: 1.1rem;
+  color: #bbb;
+  margin-bottom: 40px;
+}
+
+.upload-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.file-input {
+  background: #2a2a2a;
+  padding: 10px;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  max-width: 70%;
+}
+
+.upload-btn {
+  background: #00e5ff;
+  color: #000;
+  font-weight: 600;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.upload-btn:hover {
+  background-color: #00bcd4;
+  transform: translateY(-2px);
+}
+
+.upload-status {
+  margin-top: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: pre-line;
+  color: #ccc;
+}

@@ -1,0 +1,100 @@
+/* src/pages/LandingPage.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  background: #0e0e0e;
+  color: #fff;
+}
+
+.hero-section {
+  height: 100vh;
+  background: linear-gradient(to bottom, #0f0f0f, #151515);
+  background-image: url('abstract-geometric-with-connected-lines-dots-big-data-visualization-network-connection_906809-7581.jpg'); /* Optional */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  text-align: center;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px 20px;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.main-heading {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #00e5ff;
+}
+
+.sub-heading {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+.hero-button {
+  background-color: #00e5ff;
+  color: #000;
+  border: none;
+  padding: 14px 32px;
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-button:hover {
+  background-color: #00bcd4;
+  transform: scale(1.05);
+}
+
+.feature-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background: #141414;
+  padding: 60px 20px;
+  border-top: 1px solid #222;
+}
+
+.feature-block {
+  flex: 1 1 300px;
+  margin: 20px;
+  background: #1e1e1e;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  color: #eee;
+  transition: transform 0.3s ease;
+}
+
+.feature-block:hover {
+  transform: translateY(-8px);
+  background: #222;
+}
+
+.feature-block h3 {
+  font-size: 1.3rem;
+  color: #00e5ff;
+  margin-bottom: 12px;
+}
+
+.feature-block p {
+  font-size: 1rem;
+  color: #ccc;
+  line-height: 1.6;
+}

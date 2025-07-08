@@ -20,14 +20,9 @@ def hi():
 @app.post("/upload-resume/")
 async def upload_resume(file: UploadFile = File(...)):
     contents = await file.read()
-
-    # Parse resume content
     parsed_data = parse_resume(file=contents, filename=file.filename)
-
-    # Store parsed data in MongoDB
     resume_id = save_parsed_resume(parsed_data)
-    parsed_data["_id"] = str(resume_id)  # Convert ObjectId to string
-    #return parsed_data
+    parsed_data["_id"] = str(resume_id)  #convert the object id
     return {
         "status": "success",
         "resume_id": resume_id,
@@ -83,3 +78,11 @@ async def fetch_jobs():
         return {"status": "success", "jobs": jobs}
     except Exception as e:
         return JSONResponse(status_code=500, content={"status": "error", "message": str(e)})
+
+
+#running the job matching agent
+from langgraph.job_agent_graph import run_job_matching_agent_langgraph
+
+@app.get("/personalized-jobs")
+def get_personalized_jobs():
+    return run_job_matching_agent_langgraph()

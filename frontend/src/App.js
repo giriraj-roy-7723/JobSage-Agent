@@ -1,57 +1,31 @@
-// src/App.js
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import PersonalizedJobs from './pages/PersonalizedJobs';
+import ResumeUpload from './pages/ResumeUpload';
 import './App.css';
+import LandingPage from './pages/LandingPage';
+
+
+
 
 function App() {
-  const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('http://127.0.0.1:8000/jobs')
-      .then(res => res.json())
-      .then(data => {
-        setJobs(data.jobs);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Failed to fetch jobs:', err);
-        setLoading(false);
-      });
-  }, []);
-
   return (
-    <div className="app-container">
-      <div className="content-wrapper">
-        <h1 className="main-heading">Job Listings</h1>
+    <Router>
+      <div className="app-container">
+        <Navbar />
+        <div className="page-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/personalized" element={<PersonalizedJobs />} />
+            <Route path="/resume" element={<ResumeUpload />} />
+            <Route path="/landing" element={<LandingPage />} />
 
-        {loading ? (
-          <div className="loader">Loading jobs...</div>
-        ) : (
-          <div className="job-grid">
-            {jobs.length === 0 ? (
-              <p className="no-jobs">No jobs available.</p>
-            ) : (
-              jobs.map((job, index) => (
-                <div key={index} className="job-card">
-                  <h3 className="job-title">{job.title || "Untitled Job"}</h3>
-                  <a
-                    href={job.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="job-link"
-                  >
-                    {job.link}
-                  </a>
-                  <p className="timestamp">
-                    Scraped at: <strong>{new Date(job.scraped_at).toLocaleString()}</strong>
-                  </p>
-                </div>
-              ))
-            )}
-          </div>
-        )}
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

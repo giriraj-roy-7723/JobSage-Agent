@@ -151,7 +151,100 @@ async def scrape_jobright_jobs():
         await browser.close()
 
 
+#now we will do for glassdoor
+
+
+import sys
+import os
+import asyncio
+from datetime import datetime
+import pytz
+from playwright.async_api import async_playwright
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from database.mongo_utils import insert_job
+
+USER_DATA_DIR = os.path.join(os.getcwd(), "glassdoor_user_data")
+
+import pytz
+from datetime import datetime
+from playwright.async_api import async_playwright
+import os
+import sys
+
+# Add root directory to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from database.mongo_utils import insert_job
+
+USER_DATA_DIR = os.path.join(os.getcwd(), "glassdoor_user_data")
+
+async def scrape_glassdoor_jobs():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch_persistent_context(
+            user_data_dir=USER_DATA_DIR,
+            headless=False
+        )
+        page = await browser.new_page()
+
+        # Step 1: Go to jobs page
+        await page.goto("https://www.glassdoor.co.in/Job/software-engineer-jobs-SRCH_KO0,17.htm", timeout=60000)
+
+        # Step 2: Check login
+        if "login" in page.url or "signin" in page.url:
+            print("🔐 Please log in to Glassdoor manually in the browser. You have 90 seconds...")
+            await page.wait_for_timeout(90000)
+            await page.goto("https://www.glassdoor.co.in/Job/software-engineer-jobs-SRCH_KO0,17.htm", timeout=60000)
+
+        # Step 3: Wait for job links to load
+        await page.wait_for_selector('a[data-test="job-link"]', timeout=20000, state="attached")
+
+        # Step 4: Scroll down to load more jobs
+        for _ in range(10):
+            await page.mouse.wheel(0, 1000)
+            await page.wait_for_timeout(2000)
+
+        # Step 5: Extract job titles using aria-labelledby
+        jobs = await page.evaluate("""
+            Array.from(document.querySelectorAll('a[data-test="job-link"]')).map(a => {
+                const labelledBy = a.getAttribute("aria-labelledby");
+                let titleText = "Untitled";
+
+                if (labelledBy) {
+                    const titleId = labelledBy.split(' ')[0];
+                    const titleEl = document.getElementById(titleId);
+                    if (titleEl) {
+                        titleText = titleEl.innerText.trim();
+                    }
+                }
+
+                return {
+                    link: a.href,
+                    title: titleText
+                };
+            });
+        """)
+
+        print(f"🔍 {len(jobs)} jobs found on Glassdoor")
+
+        # Step 6: Insert jobs into DB
+        india_tz = pytz.timezone('Asia/Kolkata')
+        for job in jobs:
+            job_data = {
+                "title": job["title"],
+                "link": job["link"],
+                "source": "Glassdoor",
+                "scraped_at": datetime.now(india_tz)
+            }
+            insert_job(job_data)
+            print(f"✅ Saved: {job_data['title']} | {job_data['link']}")
+
+        await browser.close()
+
+
+
+
 async def main():
+    await scrape_glassdoor_jobs()
     await scrape_jobright_jobs()
     await scrape_internshala_jobs()
     #await scrape_jobright_jobs()

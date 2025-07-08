@@ -1,0 +1,44 @@
+/* src/components/Navbar.css */
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #111;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  font-family: 'Outfit', sans-serif;
+  box-sizing: border-box;
+}
+
+.navbar-logo {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #00e5ff;
+  cursor: pointer;
+}
+
+.navbar-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-links a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover,
+.navbar-links .active {
+  color: #00e5ff;
+  font-weight: 600;
+}
