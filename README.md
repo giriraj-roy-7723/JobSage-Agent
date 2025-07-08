@@ -1,3 +1,43 @@
+# 🧠 Job Sage Agent
+
+**Job Sage Agent** is an intelligent, full-stack AI-powered job assistant that:
+- Parses resumes 🧾
+- Scrapes real-time job listings from **Internshala**, **Glassdoor**, and **Jobright** 🌐
+- Matches resumes to jobs using LLMs (Gemini + LangGraph) 🔍
+- Generates personalized cover letters ✍️
+- Presents everything in a modern, responsive React UI 💼
+
+---
+
+## 🚀 Features
+
+- ✅ **Resume Parsing**  
+  Upload a PDF resume — the system extracts email, phone, skills, and raw text.
+
+- 🌐 **Job Scraping (Every 10 Hours)**  
+  Automatically scrapes latest jobs from:
+  - Internshala
+  - Glassdoor
+  - Jobright
+
+- 🤖 **AI Matching **  
+  Uses Sentence Transformers + LangGraph agents to:
+  - Match your resume to relevant jobs
+  - Generate cover letters based on job description + your resume - which is not done yet
+
+- 💡 **Frontend Dashboard (React)**  
+  - View all scraped jobs
+  - View personalized matches
+  - Upload resume
+  - Trigger scraping manually  
+  *(Beautiful, animated, mobile-friendly UI with Glassmorphism)*
+
+- ☁️ **MongoDB Integration**  
+  Stores resumes and job data with timestamps.
+
+---
+
+
 Folder Structure ->
 
 jobsage-agent/
@@ -32,3 +72,17 @@ jobsage-agent/
 │
 ├── .env
 └── README.md
+
+Setup -
+
+To start the server-
+go to backend , run -> uvicorn api.main:app --reload
+
+To start the frontend-
+go to frontend and do npm start 
+
+And of course you should have your own environment setup
+
+Any kind of contributions PR requests will be appreciated feel free to contribute!! :)
+
+
